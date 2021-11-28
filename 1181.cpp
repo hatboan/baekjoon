@@ -1,10 +1,12 @@
 #include <iostream>
 #include <cstring>
+#include <string>
 using namespace std;
 
 int main(){
     int n;
-    char cha[20001][50];
+    char incha[25001][60];
+    char outcha[25001][60];
     cin>>n;
     for (int i=0;i<n;i++){
         cin>>cha[i];
@@ -14,21 +16,16 @@ int main(){
         for(int j=i;j<n;j++){
             if(strlen(cha[min])>strlen(cha[j]))
                 min=j;
-            else{
-                if(strlen(cha[min])==strlen(cha[j])){
-                    int checker=0;//if min is preorder:1, if j is preorder:2
-                    for(int k=0;k<(int)strlen(cha[j]);k++){
-                        if((int)cha[min][k]==(int)cha[j][k]){}
-                        if((int)cha[min][k]<(int)cha[j][k]){
-                            checker=1;
-                            break;
-                        }
-                        if((int)cha[min][k]==(int)cha[j][k]){
-                            checker=2;
-                            break;
-                        }                  
+            else if(strlen(cha[min])==strlen(cha[j])){
+                if(strcmp(cha[min],cha[j])==0){
+                    min=j;
+                }
+                else{
+                    string strmin(cha[min]);
+                    string strj(cha[j]);
+                    if(strmin.compare(strj)>0){
+                        min=j;
                     }
-                    min=(checker==2)?j:min;
                 }
             }
         }
@@ -36,7 +33,15 @@ int main(){
         strcpy(cha[min],cha[i]);
         strcpy(cha[i],cha[20000]);
     }
+    for(int i=0;i<n-1;i++){
+        if(strcmp(cha[i],cha[i+1])==0){
+            for(int j=i;j<n-1;j++)
+                strcpy(cha[j],cha[j+1]);
+            n--;
+        }
+    }
     for (int i=0;i<n;i++){
         cout<<cha[i]<<endl;
     }
+    return 0;
 }
