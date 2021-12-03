@@ -59,9 +59,8 @@ int main(){
 
 	for(int i=0; i < n-1; i++){ 
 		if(strcmp(cha[i],cha[i+1])==0){
-			for(int j=i; j < n-1; j++){
+			for(int j=i; j < n-1; j++)
 				strcpy(cha[j],cha[j+1]);
-			}
 			n--;
             i=0;
 		}
