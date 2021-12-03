@@ -66,11 +66,6 @@ int main(){
 		}
 	}
 
-    if(strcmp(cha[0],cha[1])==0&&n!=1){
-        for(int j=1; j < n-1; j++)
-			strcpy(cha[j],cha[j+1]);
-        n--;
-    }
 
     for(int i=0;i<n;i++)
         cout<<cha[i]<<endl;
