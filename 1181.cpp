@@ -62,7 +62,6 @@ int main(){
 			for(int j=i; j < n-1; j++)
 				strcpy(cha[j],cha[j+1]);
 			n--;
-            i=0;
 		}
 	}
 
