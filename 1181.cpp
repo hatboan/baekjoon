@@ -58,20 +58,23 @@ int main(){
     mergesort(cha,0,n-1);
 
 	for(int i=0; i < n-1; i++){ 
-		if(cha[i] == cha[i+1]){
+		if(strcmp(cha[i],cha[i+1])==0){
 			for(int j=i; j < n-1; j++){
 				strcpy(cha[j],cha[j+1]);
 			}
 			n--;
+            i=0;
 		}
 	}
 
-    if(cha[0] == cha[1] && n != 1) {
-		for(int i=1; i < n-1; i++)	strcpy(cha[i],cha[i+1]);
-		n--;
-	}
+    if(strcmp(cha[0],cha[1])==0&&n!=1){
+        for(int j=1; j < n-1; j++)
+			strcpy(cha[j],cha[j+1]);
+        n--;
+    }
 
     for(int i=0;i<n;i++)
         cout<<cha[i]<<endl;
+
     return 0;
 }
