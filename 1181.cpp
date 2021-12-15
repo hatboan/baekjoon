@@ -1,74 +1,63 @@
 #include <iostream>
-#include <string>
 #include <cstring>
+#include <string>
 using namespace std;
-char sorted[30000][60];
+int sortedAge[100010];
+string sortedName[100010];
 
-void merge(char arr[30000][60],int left, int mid, int right){
+void merge(int agelist[],string namelist[],int left,int mid,int right){
     int i,j,k,l;
     i=left;
     j=mid+1;
     k=left;
-    
-    while(i<=mid && j<=right){
-        if(strlen(arr[i])<strlen(arr[j]))
-            strcpy(sorted[k++],arr[i++]);
-        else if(strlen(arr[i])>strlen(arr[j]))
-            strcpy(sorted[k++],arr[j++]);
-        else{
-            string stri(arr[i]);
-            string strj(arr[j]);
-            if(stri.compare(strj)<0)
-                strcpy(sorted[k++],arr[i++]);
-            else
-                strcpy(sorted[k++],arr[j++]);
+    while(i<=mid&&j<=right){
+        if(agelist[i]<=agelist[j]){
+            sortedName[k]=namelist[i];
+            sortedAge[k++]=agelist[i++];
+        }
+        else {
+            sortedName[k]=namelist[j];
+            sortedAge[k++]=agelist[j++];
         }
     }
-
     if(i>mid){
-        for(l=j;l<=right;l++)
-            strcpy(sorted[k++],arr[l]);
+        for(l=j;l<=right;l++){
+            sortedName[k]=namelist[l];
+            sortedAge[k++]=agelist[l];
+        }
     }
-
     else{
-        for(l=i;l<=mid;l++)
-            strcpy(sorted[k++],arr[l]);
+        for(l=i;l<=mid;l++){
+            sortedName[k]=namelist[l];
+            sortedAge[k++]=agelist[l];
+        }        
     }
-
-    for(l=left;l<=right;l++)
-        strcpy(arr[l],sorted[l]);
+    for(l=left;l<=right;l++){
+        namelist[l]=sortedName[l];
+        agelist[l]=sortedAge[l];
+    }
 }
 
-void mergesort(char arr[30000][60],int left,int right){
-    if(left<right){
+void merge_sort(int agelist[],string namelist[],int left,int right){
+   if(left<right){
         int mid=(left+right)/2;
-        mergesort(arr,left,mid);
-        mergesort(arr,mid+1,right);
-        merge(arr,left,mid,right);
+        merge_sort(agelist,namelist,left,mid);
+        merge_sort(agelist,namelist,mid+1,right);
+        merge(agelist,namelist,left,mid,right);
     }
 }
 
 int main(){
     int n;
-    char cha[30000][60];
+    string name_list[100010];
+    int age_list[100010];
     cin>>n;
     for(int i=0;i<n;i++){
-        cin>>cha[i];
+        cin>>age_list[i]>>name_list[i];
     }
-    mergesort(cha,0,n-1);
-
-	for(int i=0; i < n-1; i++){ 
-		if(strcmp(cha[i],cha[i+1])==0){
-			for(int j=i; j < n-1; j++)
-				strcpy(cha[j],cha[j+1]);
-			n--;
-			i--;
-		}
-	}
-
-
-    for(int i=0;i<n;i++)
-        cout<<cha[i]<<endl;
-
+    merge_sort(age_list,name_list,0,n-1);
+    for(int j=0;j<n;j++){
+        cout<<age_list[j]<<" "<<name_list[j]<<"\n";
+    }
     return 0;
 }
