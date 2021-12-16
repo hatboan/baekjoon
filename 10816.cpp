@@ -37,53 +37,46 @@ void merge_sort(int arr[],int left,int right){
     }
 }
 
+int lower_bound(int arr[],int target,int size){
+    int mid,start,end;
+    start=0;
+    end=size-1;
+    while(start<end){
+        mid=(start+end)/2;
+        if(arr[mid]>=target)
+            end=mid;
+        else start=mid+1;
+    }
+    return end;
+}
+
 int main(){
     int n,m,l;
     int cardlist[500001];
     int checklist[500001];
-    cin>>n;
+    scanf("%d",&n);
     for(l=0;l<n;l++)
-        cin>>cardlist[l];
+        scanf("%d",&cardlist[l]);
     merge_sort(cardlist,0,n-1);
-    cin>>m;
+    scanf("%d",&m);
     for(l=0;l<m;l++)
-        cin>>checklist[l];
+        scanf("%d",&checklist[l]);
     for(l=0;l<m;l++){
-        int start=0;
-        int end=n-1;
-        int find=0;
+        int checker=lower_bound(cardlist,checklist[l],n);
         int cnt=0;
-        int checker=0;
-        while(start<=end){
-            int mid=(start+end)/2;
-            if(cardlist[mid]<checklist[l])
-                start=mid+1;
-            else if(cardlist[mid]>checklist[l])
-                end=mid-1;
-            else{
-                checker=mid;
-                find=1;
-                break;
-                }
+        if(cardlist[checker]!=checklist[l]){
+            if(l==0)
+                printf("%d",0);
+            else
+                printf(" %d",0);
         }
-        if(find==0)
-            checklist[l]=0;
         else{
-            while(1){
-                if(cardlist[checker-1]==checklist[l])
-                    checker--;
-                else
-                    break;
-            }
-            while(1){
+            while(cardlist[checker++]==checklist[l])
                 cnt++;
-                if(cardlist[checker+1]==checklist[l])
-                    checker++;
-                else
-                    break;
-            }
-            checklist[l]=cnt;
+            if(l==0) printf("%d",cnt);
+            else printf(" %d",cnt);
         }
     }
+    printf("\n");
     return 0;   
 }
