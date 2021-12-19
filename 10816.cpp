@@ -1,32 +1,3 @@
-Skip to content
-Search or jump to…
-Pulls
-Issues
-Marketplace
-Explore
- 
-@hatboan 
-hatboan
-/
-baekjoon
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-More
-baekjoon/10816.cpp
-@hatboan
-hatboan Update 10816.cpp
-Latest commit 1049ecb 3 days ago
- History
- 1 contributor
-82 lines (76 sloc)  1.71 KB
-   
 #include <iostream>
 using namespace std;
 int sorted[500001];
@@ -69,7 +40,7 @@ void merge_sort(int arr[],int left,int right){
 int lower_bound(int arr[],int target,int size){
     int mid,start,end;
     start=0;
-    end=size-1;
+    end=size;
     while(start<end){
         mid=(start+end)/2;
         if(arr[mid]>=target)
@@ -79,6 +50,19 @@ int lower_bound(int arr[],int target,int size){
     return end;
 }
 
+int upper_bound(int arr[],int target,int size){
+    int mid,start,end;
+    start=0;
+    end=size;
+    while(start<end){
+        mid=(start+end)/2;
+        if(arr[mid]>target)
+            end=mid;
+        else
+            start=mid+1;
+    }
+    return end;
+}
 int main(){
     int n,m,l;
     int cardlist[500001];
@@ -91,34 +75,7 @@ int main(){
     for(l=0;l<m;l++)
         scanf("%d",&checklist[l]);
     for(l=0;l<m;l++){
-        int checker=lower_bound(cardlist,checklist[l],n);
-        int cnt=0;
-        if(cardlist[checker]!=checklist[l]){
-            if(l==0)
-                printf("%d",0);
-            else
-                printf(" %d",0);
-        }
-        else{
-            while(cardlist[checker++]==checklist[l])
-                cnt++;
-            if(l==0) printf("%d",cnt);
-            else printf(" %d",cnt);
-        }
+        printf("%d ",upper_bound(cardlist,checklist[l],n)-lower_bound(cardlist,checklist[l],n));
     }
-    printf("\n");
     return 0;   
 }
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete
