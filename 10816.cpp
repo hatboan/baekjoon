@@ -1,3 +1,32 @@
+Skip to content
+Search or jump to…
+Pulls
+Issues
+Marketplace
+Explore
+ 
+@hatboan 
+hatboan
+/
+baekjoon
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+More
+baekjoon/10816.cpp
+@hatboan
+hatboan Update 10816.cpp
+Latest commit 1049ecb 3 days ago
+ History
+ 1 contributor
+82 lines (76 sloc)  1.71 KB
+   
 #include <iostream>
 using namespace std;
 int sorted[500001];
@@ -80,3 +109,16 @@ int main(){
     printf("\n");
     return 0;   
 }
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
