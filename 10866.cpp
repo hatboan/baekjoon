@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-int main(){
+int main(){ //큐 문제 풀이를 조금 변경해서 
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
