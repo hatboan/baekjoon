@@ -2,23 +2,21 @@
 #include <queue>
 using namespace std;
 #define MAX 1001
-int smaller=0;
 int box[MAX][MAX];
-int visit[MAX][MAX][100];
 int dist[MAX][MAX];
 int biggest=0;
 int m,n;
 
 void bfs(int cur_x,int cur_y){
+    int visit[MAX][MAX]={0,};
     queue<int> qx;
     queue<int> qy;
     qx.push(cur_x);
     qy.push(cur_y);
-    int smaller_cur=smaller++;
-    visit[cur_x][cur_y][smaller_cur]=1;
+    visit[cur_x][cur_y]=1;
     dist[cur_x][cur_y]=0;
 
-    
+
     while(!qx.empty()){
         cur_x=qx.front();
         cur_y=qy.front();
@@ -32,37 +30,44 @@ void bfs(int cur_x,int cur_y){
             int new_x=cur_x+plus_x[i];
             int new_y=cur_y+plus_y[i];
             if(new_x>=0&&new_x<m&&new_y>=0&&new_y<n){
-                if(visit[new_x][new_y][smaller_cur]==0&&box[new_x][new_y]==0){
+                if(box[new_x][new_y]==0&&visit[new_x][new_y]==0){
                     qx.push(new_x);
                     qy.push(new_y);
-                    visit[new_x][new_y][smaller_cur]=1;
+                    visit[new_x][new_y]=1;
                     if(dist[new_x][new_y]!=0)
                         dist[new_x][new_y]=dist[new_x][new_y]<dist[cur_x][cur_y]+1?dist[new_x][new_y]:dist[cur_x][cur_y]+1;
                     else dist[new_x][new_y]=dist[cur_x][cur_y]+1;
+                    
+                    
                 }
             }
         }    
-     
+
     }
 }
 
 int main(){
     int checker=0;
+    queue <int> redtom_x;
+    queue <int> redtom_y;
     scanf("%d %d",&m,&n);
     for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++)
-            scanf("%d",&box[j][i]);
-    }
-
-    for(int i=0;i<n;i++){
         for(int j=0;j<m;j++){
+            scanf("%d",&box[j][i]);
             if(box[j][i]==1){
-                bfs(j,i);
+                redtom_x.push(j);
+                redtom_y.push(i);
             }
         }
     }
 
-
+    while(!redtom_x.empty()){
+        int redtom_curx=redtom_x.front();
+        int redtom_cury=redtom_y.front();
+        bfs(redtom_curx,redtom_cury);
+        redtom_x.pop();
+        redtom_y.pop();
+    }
 
     for(int i=0;i<n;i++){
         for(int j=0;j<m;j++){
