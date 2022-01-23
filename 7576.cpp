@@ -3,23 +3,21 @@
 using namespace std;
 
 #define max 1001
+queue <pair<int,int>> q;
 int land[max][max]={0,};
 int dist[max][max]={0,};
 int m,n;
 
-void bfs(int x,int y){
+void bfs(){
     int visit[max][max]={0,};
 
     int px[4]={1,-1,0,0};
     int py[4]={0,0,1,-1};
-    queue <pair<int,int>> q;
-    q.push(make_pair(x,y));
-    visit[x][y]=1;
-    dist[x][y]=1;
 
     while(!q.empty()){
         int cx=q.front().first;
         int cy=q.front().second;
+        visit[cx][cy]=1;
         q.pop();
         for(int a=0;a<4;a++){
             int nx=cx+px[a];
@@ -28,10 +26,7 @@ void bfs(int x,int y){
                 if(visit[nx][ny]==0&&land[nx][ny]==0){
                     visit[nx][ny]=1;
                     q.push(make_pair(nx,ny));
-                    if(dist[nx][ny]==0)
-                        dist[nx][ny]=dist[cx][cy]+1;
-                    else
-                        dist[nx][ny]=dist[nx][ny]<dist[cx][cy]+1?dist[nx][ny]:dist[cx][cy]+1;
+                    dist[nx][ny]=dist[cx][cy]+1;
                 }
             }
         }
@@ -41,26 +36,22 @@ void bfs(int x,int y){
 }
 
 int main(){
-    queue <pair<int,int>> ripe_tom;
-    int biggest=0;
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
+    int biggest=0;
     cin>>m>>n;
     for(int i=0;i<n;i++){
         for(int j=0;j<m;j++){
             cin>>land[j][i];
-            if(land[j][i]==1)
-                ripe_tom.push(make_pair(j,i));
+            if(land[j][i]==1){
+                dist[j][i]=0;
+                q.push(make_pair(j,i));
+            }
         }
     }
 
-    while(!ripe_tom.empty()){
-        int cur_x=ripe_tom.front().first;
-        int cur_y=ripe_tom.front().second;
-        ripe_tom.pop();
-        bfs(cur_x,cur_y);
-    }
+    bfs();
 
     for(int i=0;i<n;i++){
         for(int j=0;j<m;j++){
@@ -73,5 +64,5 @@ int main(){
         }
     }
 
-    cout<<biggest-1<<"\n";
+    cout<<biggest<<"\n";
 }
